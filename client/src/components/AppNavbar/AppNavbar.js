@@ -4,14 +4,14 @@ class AppNavbar extends Component {
   constructor(props) {
     super(props);
 
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleMenuToggle = this.handleMenuToggle.bind(this);
 
     this.state = {
       isOpen: false
     }
   }
 
-  handleToggle() {
+  handleMenuToggle() {
     console.log('hello');
     this.setState({
       isOpen: !this.state.isOpen
@@ -31,11 +31,11 @@ class AppNavbar extends Component {
             aria-controls="navbarToggler" 
             aria-expanded="false" 
             aria-label="Toggle navigation"
-            onClick={this.handleToggle}
+            onClick={this.handleMenuToggle}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse " {this.state.isOpen ? "show" : ""} id="navbarToggler">
+          <div className={this.state.isOpen ? "collapse navbar-collapse show" : "collapse navbar-collapse"} id="navbarToggler">
             <ul className="navbar-nav">
               <li className="nav-item active">
                 <a className="nav-link" href="#home">Home</a>
