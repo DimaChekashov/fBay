@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import uuid from 'uuid';
+import { connect } from 'react-redux';
+
+import { getItems } from '../../actions/ItemActions';
+
 
 class ShoppingList extends Component {
   constructor(props) {
@@ -7,15 +12,10 @@ class ShoppingList extends Component {
 
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleDeleteItem = this.handleDeleteItem.bind(this);
+  }
 
-    this.state = {
-      items: [
-        { id: uuid(), name: 'Eggs' },
-        { id: uuid(), name: 'Milk' },
-        { id: uuid(), name: 'Steak' },
-        { id: uuid(), name: 'Water' },
-      ],
-    };
+  componentDidMount() {
+    this.props.getItems();
   }
 
   handleAddItem(){
@@ -34,7 +34,7 @@ class ShoppingList extends Component {
   }
   
   render() {
-    const { items } = this.state;
+    const { items } = this.props.item;
     return (
       <div className="container">
         <button
@@ -60,4 +60,13 @@ class ShoppingList extends Component {
   }
 }
 
-export default ShoppingList;
+ShoppingList.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  item: state.item
+});
+
+export default connect(mapStateToProps, { getItems })(ShoppingList);
